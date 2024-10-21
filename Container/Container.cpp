@@ -26,7 +26,6 @@ void PrintListList()
         std::cout << *i << " ";
     }
 }
-
 void Container() 
 {
     int nb;
@@ -66,15 +65,15 @@ void Container()
 int main()
 {
     Item goldBlade("GoldBlade", 50);
-    Item cheese("BigPieceOfCheese", 875);
+    Item cheese("BigPieceOfCheese", 95);
     Item magicBook("MagicBook", 40);
     Item mindStone("MindStone", 5);
 
+    //Inventory newInventory(200);
     Inventory newInventory;
     newInventory.Add(goldBlade);
     newInventory.Add(cheese);
     newInventory.Add(magicBook);
     newInventory.Add(mindStone);
-
     newInventory.Menu();
 }

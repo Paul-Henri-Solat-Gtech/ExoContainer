@@ -1,6 +1,28 @@
 #include "inventory.h"
 
-void Inventory::ShowInventory() 
+//Inventory::Inventory(int inventoryWeightLimit):weightLimit(inventoryWeightLimit)
+//{
+//    std::cout << "Your bag limit weight is : " << weightLimit << std::endl;
+//    Menu();
+//}
+
+void Inventory::DetailledShowInventory() 
+{
+    std::cout << "Your bag contain : "<< std::endl;
+    int bagTotalWeight = 0;
+    int nbItem = 0;
+    for (int i = 0; i < itemList.size(); i++)
+    {
+        std::cout << itemList[i].name << std::endl;
+        bagTotalWeight += itemList[i].weight;
+        nbItem++;
+    }
+    std::cout << "And your bag total weight is : " << bagTotalWeight << std::endl;
+    std::cout << "The weight of the items in your bag are around : " << bagTotalWeight/nbItem << std::endl;
+    Menu();
+}
+
+void Inventory::ShowInventory()
 {
     std::cout << std::endl << "Inventory: ";
     for (int i = 0; i < itemList.size(); i++)
@@ -9,6 +31,7 @@ void Inventory::ShowInventory()
     }
     Menu();
 }
+
 void Inventory::ShowItem() 
 {
     std::cout << std::endl << "Give the item name: ";
@@ -75,6 +98,52 @@ void Inventory::Delete()
     Menu();
 }
 
+void Inventory::SortingInventory() 
+{
+    for (int i = 0; i < itemList.size(); i++)
+    {
+        
+    }
+}
+void Inventory::SortingItem()
+{
+    std::cout << std::endl << "Search all item with (1.UpperWeight, 2.lowerWeight) : ";
+    int choice;
+    std::cin >> choice;
+    std::cout << std::endl << " Select a weight : ";
+    int weight;
+    std::cin >> weight;
+    int nbItem = 0;
+    switch (choice)
+    {
+    case 1:
+        for (int i = 0; i < itemList.size(); i++)
+        {
+            if (itemList[i].weight > weight)
+            {
+                nbItem++;
+                std::cout << itemList[i].name << "(" << itemList[i].weight << ") ";
+            }
+        }
+        std::cout << "There is " << nbItem << " items with a weight supperior to " << weight;
+        Menu();
+    case 2:
+        for (int i = 0; i < itemList.size(); i++)
+        {
+            if (itemList[i].weight < weight)
+            {
+                nbItem++;
+                std::cout << itemList[i].name << "(" << itemList[i].weight << ") ";
+            }
+        }
+        std::cout << "There is " << nbItem << " items with a weight inferior to " << weight;
+        Menu();
+    default:
+        break;
+    }
+
+}
+
 void Inventory::Menu() 
 {
     std::cout << std::endl << " - Choose an option - "<<std::endl;
@@ -82,6 +151,8 @@ void Inventory::Menu()
     std::cout << "2. Select an item to remove from your inventory" << std::endl;
     std::cout << "3. Create a custom item" << std::endl;
     std::cout << "4. Show the details of an item" << std::endl;
+    std::cout << "5. Show the details of your inventory" << std::endl;
+    std::cout << "6. Show the number of item based on his weight" << std::endl;
     int optionNb;
     std::cin >> optionNb;
     switch (optionNb)
@@ -97,6 +168,12 @@ void Inventory::Menu()
         break;
     case 4:
         ShowItem();
+        break;
+    case 5:
+        DetailledShowInventory();
+        break;
+    case 6:
+        SortingItem();
         break;
     default:
         break;
