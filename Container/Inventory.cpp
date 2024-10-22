@@ -100,10 +100,30 @@ void Inventory::Delete()
 
 void Inventory::SortingInventory() 
 {
-    for (int i = 0; i < itemList.size(); i++)
+    std::cout << std::endl << "Re-order item by their (1.Name/2.WeightAscendant/3.WeightDescendant) !";
+    int choice;
+    std::cin >> choice;
+
+    switch (choice)
     {
-        
+    case 1:
+        //std::sort(itemList.begin(), itemList.end(), Item::SortByName);
+        std::sort(itemList.begin(), itemList.end(), [](const Item& itemA, const Item& itemB) {return strcmp(itemA.name, itemB.name) < 0; });
+        std::cout << std::endl << "Items have been re-ordered by their name !" << std::endl;
+        break;
+    case 2:
+        std::sort(itemList.begin(), itemList.end(), Item::SortByWeightAsc);
+        std::cout << std::endl << "Items have been re-ordered by their WeightAscendant !" << std::endl;
+        break;
+    case 3:
+        std::sort(itemList.begin(), itemList.end(), Item::SortByWeightDesc);
+        std::cout << std::endl << "Items have been re-ordered by their WeightDescendant !" << std::endl;
+        break;
+    default:
+        break;
     }
+    ShowInventory();
+    Menu();
 }
 void Inventory::SortingItem()
 {
@@ -153,6 +173,7 @@ void Inventory::Menu()
     std::cout << "4. Show the details of an item" << std::endl;
     std::cout << "5. Show the details of your inventory" << std::endl;
     std::cout << "6. Show the number of item based on his weight" << std::endl;
+    std::cout << "7. Re-ordered item based on their name" << std::endl;
     int optionNb;
     std::cin >> optionNb;
     switch (optionNb)
@@ -174,6 +195,9 @@ void Inventory::Menu()
         break;
     case 6:
         SortingItem();
+        break;
+    case 7:
+        SortingInventory();
         break;
     default:
         break;
