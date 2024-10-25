@@ -4,11 +4,14 @@
 #include <set>
 #include <algorithm>
 #include <chrono>
+#include <type_traits>
 
 #include "Inventory.h"
+#include "Projectile.h"
 
 //intro
 std::vector<int> vectList = { 5, 4, 9, 10, 5, 6 };
+std::vector<float> vectListF = { 5.6f, 4.5f, 9.5f, 10.3f, 5.5f, 6.4f };
 std::list<int> listList = { 5, 4, 9, 10, 5, 6 };
 std::set<int> setList = { 5, 4, 9, 10, 5, 6 };
 void PrintVectorList() 
@@ -164,10 +167,9 @@ void ChronoTest()
 
 //exo 3
 template<typename T>
-void SearchLowestNumber(T list) 
+float SearchLowestNumber(T list) 
 {
-    // Initialiser le plus petit chiffre avec la plus grande valeur possible
-    int minNumber = std::numeric_limits<int>::max();
+    float minNumber = std::numeric_limits<float>::max();
 
     for (int i=0; i < list.size(); i++)
     {
@@ -176,17 +178,61 @@ void SearchLowestNumber(T list)
             minNumber = list[i];
         }
     }
-    std::cout << "The lowest num is: " << minNumber << std::endl;
+    return minNumber;
 }
-
 template<typename T>
-void insertLast(std::vector<T> vectorList, T element) 
+void InsertLast(std::vector<T> vectorList, T element) 
 {
     vectorList.push_back(element);
     std::cout << "The list has now " << vectorList.size() << " elements" << std::endl;
 }
+template<typename T>
+T SumTableValue(std::vector<T> vectorList)
+{
+    T sum = 0;
+    for (int i = 0; i < vectorList.size(); i++)
+    {
+        sum += vectorList[i];
+    }
+    return sum;
+}
+template<typename T>
+T AveragingTableValue(std::vector<T> vectorList)
+{
+    float sum = 0;
+    float nbElement = vectorList.size();
+    for (int i = 0; i < vectorList.size(); i++)
+    {
+        sum += vectorList[i];
+    }
+    if (std::is_same<T, int>::value)
+    {
+        double doubleResult = sum / nbElement;
+        return doubleResult;
+    }
+    else
+    {
+        T result = sum / nbElement;
+        return result;
+    }
+}
+
+void TestTemplate() 
+{
+    InsertLast(vectList, 8);
+    std::cout << "The lowest num is: " << SearchLowestNumber(vectList) << std::endl;
+    std::cout << "The sum of the table is: " << SumTableValue(vectList) << std::endl;
+    std::cout << "The average of this table is: " << AveragingTableValue(vectList) << std::endl;
+}
+
+//exo 4
+void TestProjectile() 
+{
+    Projectile newProjectileArrow(1.f, 2, 10.f, 10.f, 50.f, 2.f);
+    Projectile newProjectileFireBall(1.f,2.f,10.f,10.f,50.f,2.f);
+}
 int main()
 {
-    SearchLowestNumber(vectList);
-    insertLast(vectList, 8);
+    TestProjectile();
+    return 0;
 }
