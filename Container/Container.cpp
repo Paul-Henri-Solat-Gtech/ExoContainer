@@ -8,6 +8,7 @@
 
 #include "Inventory.h"
 #include "Projectile.h"
+#include "Character.h"
 
 //intro
 std::vector<int> vectList = { 5, 4, 9, 10, 5, 6 };
@@ -231,8 +232,45 @@ void TestProjectile()
     Projectile newProjectileArrow(1.f, 2, 10.f, 10.f, 50.f, 2.f);
     Projectile newProjectileFireBall(1.f,2.f,10.f,10.f,50.f,2.f);
 }
+
+//exo 5
+template<typename T>
+void CharacterStatistique(std::vector<T> tablePerso) 
+{
+    std::vector<int> lifePointTabl;
+    std::vector<int> attackTabl;
+    std::vector<int> defenseTabl;
+
+    for(int i = 0; i < tablePerso.size(); i++)
+    {
+        lifePointTabl.push_back(tablePerso[i].lifePoint);
+        std::cout << "HP added" << std::endl;
+    }
+    for (int i = 0; i < lifePointTabl.size(); i++)
+    {
+        std::cout << "Character HP" << lifePointTabl[i] << std::endl;
+    }
+}
+
+template<typename T>
+void CalculStatistique(std::vector<T> tableStat)
+{
+
+}
+
+void CreateCharacter() 
+{
+    std::vector<Character> characterTabl;
+    Character elf(100, 50, 1);
+    Character dwarf(70,30,50);
+    characterTabl.push_back(elf);
+    characterTabl.push_back(dwarf);
+
+    CharacterStatistique(characterTabl);
+}
+
 int main()
 {
-    TestProjectile();
+    CreateCharacter();
     return 0;
 }
